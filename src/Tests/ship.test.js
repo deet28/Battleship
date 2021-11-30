@@ -18,4 +18,4 @@ test('Sinking a ship',() => {
   patrolBoat.hit();
   patrolBoat.hit();
   expect(patrolBoat.sunk).toBe(true);
-})
+});

@@ -1,5 +1,5 @@
 const Gameboard = require('./../Factories/gameboard');
-const Ship = require('./../Factories/ship.js');
+//const Ship = require('./../Factories/ship.js');
 
 test('Adding all ships to the gameboard', () => {
   const playerShips = new Gameboard();
@@ -59,8 +59,13 @@ test('Gameboard recording attacks that hit ships',() => {
 
 test('Gameboard recording missed attacks',() => {
   const playerShips = new Gameboard();
-  playerShips.receiveAttack(12);
-  expect(playerShips.ships.missedAttacks).toBe([1][2]);
+  playerShips.placeShips(playerShips.ships.patrolBoat,40);
+  playerShips.receiveAttack(13);
+  playerShips.receiveAttack(30);
+  
+  expect(playerShips.missedShots[0]).toEqual([1,3]);
+  expect(playerShips.missedShots[1]).toEqual([3,0]);
+  expect(playerShips.missedShots).toEqual([[1,3],[3,0]]);
 });
 
 test('Gameboard recording ships that have sunk',() => {

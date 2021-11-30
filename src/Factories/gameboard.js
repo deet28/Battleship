@@ -55,8 +55,9 @@ class Gameboard {
       let row = coords[0];
       let col = coords[1];
 
-      if(this.gameGrid[row][col] === undefined){
-        this.missedShots.push([row][col])
+      if(this.gameGrid[row][col] == undefined){
+        let tempArray = [row,col];
+        return this.missedShots.push(tempArray);
         } else {
         Object.values(this.ships).forEach(val => {
           if (val.name === this.gameGrid[row][col]){
