@@ -1,0 +1,21 @@
+{
+  "name": "bship",
+  "version": "1.0.0",
+  "description": "BattleShip App",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "watch":"jest --watch*.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "copy-webpack-plugin": "^10.0.0",
+    "css-loader": "^6.5.1",
+    "jest": "^27.4.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  }
+}
