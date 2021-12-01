@@ -5,16 +5,35 @@ class Player {
     this.name = name;
     this.gameboard = new Gameboard();
     this.attacks = [];
-    this.newAttack = 0;
+    let newAttack;
+    let tempCount = 0;;
 
     this.turn = function(player,input){
       if(this.name == 'Computer'){
-        input = this.randomCoord();
-        return player.gameboard.receiveAttack(input.join(''));
+        let tempAttack = this.computerAttack()
+        return player.gameboard.receiveAttack(tempAttack.join(''));
       } else {
         input = input;
         return player.gameboard.receiveAttack(input);
       }
+    }
+    
+    this.computerAttack = function(){
+      outer:while(tempCount === 0 ){
+        let input = this.randomCoord();
+        for(let i = -1; i < this.attacks.length; i++){
+          if((!(`${[input]}` == `${this.attacks[i]}`))){
+            newAttack = input;
+            tempCount++;
+          } else if (tempCount === 0){
+            continue outer;
+        }
+      };
+        this.attacks.push(newAttack);
+        tempCount--;
+        return newAttack;
+      }
+      
     }
 
     this.randomCoord = function(){
@@ -22,12 +41,6 @@ class Player {
       let b = (Math.floor(Math.random()*10));
       return [a,b];
       }
-
-    //this.trackRandomAttacks = function(input){
-    //    for(let i = 0; i < this.attacks.length; i++){
-    //      if (this.attacks[i][0])
-    //    }
-    //  }
     }
   }
 

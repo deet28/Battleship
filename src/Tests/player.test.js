@@ -36,3 +36,10 @@ test('Testing randomly generated attack for computer player',()=>{
   expect(regex.test(playerOne.gameboard.missedShots)).toBe(true);
 });
 
+test('Computer cannot repeat an attack',() => {
+  const playerOne = new Player('David');
+  const playerTwo = new Player('Computer');
+  playerTwo.computerAttack(playerOne);
+  expect(playerTwo.attacks).toEqual([1,1]);
+})
+
