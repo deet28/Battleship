@@ -1,10 +1,4 @@
 const Player = require('./../Factories/player.js');
-//const Gameboard = require('./../Factories/gameboard.js');
-
-
-//should a player be assigned his own gameboard in creation?
-//like gameboards are assigned their own ships in creation.
-
 
 test('Player starts by creating gameboard',() => {
   const playerOne = new Player('David');
@@ -28,7 +22,6 @@ test('When players attack gameboards, gameboards can record player misses',() =>
 });
 
 test('Testing randomly generated attack for computer player',()=>{
-  //using regex to test this one, as it is a random attack.
   const playerOne = new Player('David');
   const playerTwo = new Player('Computer');
   const regex = new RegExp(/[0-9,0-9]/);
@@ -36,10 +29,14 @@ test('Testing randomly generated attack for computer player',()=>{
   expect(regex.test(playerOne.gameboard.missedShots)).toBe(true);
 });
 
-test('Computer cannot repeat an attack',() => {
+test('Computer tracks previous attacks so it does not repeat an attack',() => {
   const playerOne = new Player('David');
   const playerTwo = new Player('Computer');
-  playerTwo.computerAttack(playerOne);
-  expect(playerTwo.attacks).toEqual([1,1]);
-})
+  playerTwo.turn(playerOne);
+  playerTwo.turn(playerOne)
+  expect(playerTwo.attacks.length).toEqual(2);
+});
+
+
+
 

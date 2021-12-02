@@ -1,4 +1,8 @@
 const Ship = require ('./ship');
+const BoardMaker = require('./../dom.js'); 
+
+const playerOneBoard = document.querySelector('.player-board');
+const playerTwoBoard = document.querySelector('.enemy-board');
 
 class Gameboard {
   constructor(){
@@ -19,9 +23,10 @@ class Gameboard {
       let row = coord[0];
       let col = coord[1];
       
+      
       if(ship.length + col > 10){
         return; 
-      } else if (this.freeSpace(ship,row,col)==false){
+      } else if (this.freeSpace(ship,row,col)===false){
         return;
       } else {
         for(let i = 0; i < ship.length; i++){
@@ -38,7 +43,7 @@ class Gameboard {
     this.freeSpace = function(ship,row,col){
       let checkSpace = 0;
       for(let i = 0; i < ship.length; i++){
-        if (this.gameGrid[col][row+i] === undefined){
+        if (this.gameGrid[row][col+i] === undefined){
           checkSpace++;
         }
         return checkSpace;
@@ -84,7 +89,6 @@ class Gameboard {
           return false;
       }
     }
-
     
     this.getCoord = function(input){
       let array = [];
@@ -101,6 +105,8 @@ class Gameboard {
       }
     }
   } 
+
+
 
 
 

@@ -1,5 +1,4 @@
 const Gameboard = require('./../Factories/gameboard');
-//const Ship = require('./../Factories/ship.js');
 
 test('Adding all ships to the gameboard', () => {
   const playerShips = new Gameboard();
