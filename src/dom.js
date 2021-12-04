@@ -1,4 +1,4 @@
-const Gameboard = require ('./Factories/gameboard.js');
+//const Gameboard = require ('./Factories/gameboard.js');
 
 //const playerOneBoard = document.querySelector('.player-board');
 //const playerTwoBoard = document.querySelector('.enemy-board');
@@ -31,4 +31,4 @@ class BoardMaker{
 //boardMaker.makePlayerTwoBoard();
 //boardMaker.makePlayerOneBoard();
 
-module.exports = BoardMaker;
+//module.exports = BoardMaker;

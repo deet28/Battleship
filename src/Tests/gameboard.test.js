@@ -43,6 +43,7 @@ test('Ships cannot be placed on taken squares',() => {
   expect(playerShips.gameGrid[1][0]).toBe('Battle Ship');
   expect(playerShips.gameGrid[1][1]).toBe('Battle Ship');
   expect(playerShips.gameGrid[1][2]).toBe('Battle Ship');
+  expect(playerShips.placeShips(playerShips.ships.patrolBoat,11)).toBe(false);
 });
 
 test('Gameboard recording attacks that hit ships',() => {

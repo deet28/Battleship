@@ -11,7 +11,7 @@ class Player {
     this.attacks = [];
     let newAttack;
     let tempCount = 0;
-      //make player grid in player class.
+
     this.makePlayerBoard = function(){
       if (this.player == 'One'){
         for(let i = 0; i < 100; i++){
@@ -30,13 +30,17 @@ class Player {
         return playerTwoBoard;
       }
     }
-      //display ships function in Player class.
+      
     this.displayShips = function(){
-    for(let i = 0; i < this.gameboard.gameGrid.length;i++){
+      for(let i = 0; i < this.gameboard.gameGrid.length;i++){
         for(let j = 0; j < this.gameboard.gameGrid[i].length;j++){
          if (!(this.gameboard.gameGrid[i][j] == undefined)){
            let iter = this.translateCoord(i,j);
-           playerOneBoard.children[iter].classList.add('piece-placed');
+           if(this.name == 'Computer'){
+             playerTwoBoard.children[iter].classList.add('test');
+           } else {
+             playerOneBoard.children[iter].classList.add('piece-placed');
+           }
          };
         } 
       }
@@ -95,23 +99,25 @@ class Player {
   //Creating two players. Appending tiles to boards.
   const test = new Player('David','One');
   test.makePlayerBoard();
-  const test2 = new Player('Test','Two');
+  const test2 = new Player('Computer','Two');
   test2.makePlayerBoard();
+  test2.gameboard.computerPlaceShips();
 
-  //placing ships on player one gameboard.
-  test.gameboard.placeShips(test.gameboard.ships.carrierShip,05);
-  test.gameboard.placeShips(test.gameboard.ships.destroyerShip,63);
-  test.gameboard.placeShips(test.gameboard.ships.battleShip,24);
-  test.gameboard.placeShips(test.gameboard.ships.submarine,45);
-  test.gameboard.placeShips(test.gameboard.ships.patrolBoat,60);
 
-//still need a function to let computer randomly place ships.
-//still need a function to change missed squares to grey.
-
+  //placing ships on player one gameboard.s
+  test.gameboard.placeShips(test.gameboard.ships.carrierShip,00);
+  test.gameboard.placeShips(test.gameboard.ships.destroyerShip,01);
+  test.gameboard.placeShips(test.gameboard.ships.battleShip,02);
+  test.gameboard.placeShips(test.gameboard.ships.submarine,03);
+  test.gameboard.placeShips(test.gameboard.ships.patrolBoat,04);
 
 
   console.log(test.gameboard.gameGrid);
+  console.log(test2.gameboard.gameGrid);
   test.displayShips();
+  test2.displayShips();
 
 
+//still need a function to let computer randomly place ships.
+//still need a function to change missed squares to grey.
   module.exports = Player;

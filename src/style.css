@@ -53,11 +53,11 @@ body{
   background-color: green;
 }
 
-.red-test{
+.attack-landed{
   background-color: red;
 }
 
-.gray-test{
+.attack-missed{
   background-color: grey;
 }
 .piece-placed{

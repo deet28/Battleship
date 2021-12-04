@@ -1,8 +1,5 @@
 const Ship = require ('./ship');
-const BoardMaker = require('./../dom.js'); 
-
-const playerOneBoard = document.querySelector('.player-board');
-const playerTwoBoard = document.querySelector('.enemy-board');
+const Player = require('./player');
 
 class Gameboard {
   constructor(){
@@ -10,62 +7,114 @@ class Gameboard {
     this.shipsPlaced = 0;
     this.missedShots = [];
     this.shipsSunk = 0;
+    this.xAxis = false;
     this.gameGrid = Array(10).fill().map(()=>Array(10).fill());
+    let placeCount = 0;
 
-    this.ships.carrierShip = new Ship('Carrier',5);
-    this.ships.destroyerShip = new Ship('Destroyer',4);
-    this.ships.battleShip = new Ship ('Battle Ship',3);
-    this.ships.submarine = new Ship ('Submarine',3);
-    this.ships.patrolBoat = new Ship ('Patrol Boat',2);
+    this.ships.carrierShip = new Ship('carrierShip',5);
+    this.ships.destroyerShip = new Ship('destroyerShip',4);
+    this.ships.battleShip = new Ship ('battleShip',3);
+    this.ships.submarine = new Ship ('submarine',3);
+    this.ships.patrolBoat = new Ship ('patrolBoat',2);
 
     this.placeShips = function(ship,input){
-      let coord = this.getCoord (input);
-      let row = coord[0];
-      let col = coord[1];
-      
-      
-      if(ship.length + col > 10){
-        return; 
-      } else if (this.freeSpace(ship,row,col)===false){
-        return;
-      } else {
-        for(let i = 0; i < ship.length; i++){
-          this.gameGrid[row][col+i] = ship.name;
-          let array = [];
-          array[0] = row;
-          array[1] = col+i;
-        }
-        this.shipsPlaced ++;
-        return this.gameGrid;
+      if (this.xAxis === true){
+        let coord = this.getCoord (input);
+        let row = coord[0];
+        let col = coord[1];
+        if(ship.length + col > 10){
+          return false; 
+        } else if (this.freeSpaceX(ship,row,col) === false){
+          return false;
+        } else {
+          for(let i = 0; i < ship.length; i++){
+            this.gameGrid[row][col+i] = ship.name;
+            let array = [];
+            array[0] = row;
+            array[1] = col+i;
+          }
+          this.shipsPlaced ++;
+          return this.gameGrid;
+        } 
+      } else if(this.xAxis === false){  
+        let coord = this.getCoord (input);
+        let row = coord[0];
+        let col = coord[1];
+        if (ship.length + row > 10){
+          return false;
+        } else if (this.freeSpaceY(ship,row,col) === false){
+          return false;
+        } else {
+          for(let i = 0; i < ship.length; i++){
+            this.gameGrid[row+i][col] = ship.name;
+          }
+          this.shipsPlaced++
+          return this.gameGrid;
+        }  
       }
     }
     
-    this.freeSpace = function(ship,row,col){
+    this.freeSpaceX = function(ship,row,col){
       let checkSpace = 0;
-      for(let i = 0; i < ship.length; i++){
-        if (this.gameGrid[row][col+i] === undefined){
-          checkSpace++;
+        for(let i = 0; i < ship.length; i++){
+          if (this.gameGrid[row][col+i] === undefined){
+            checkSpace++;
+          }
         }
-        return checkSpace;
-        }
-        if (checkSpace === ship.length){
-          return true;
-        } else {
+          if(checkSpace === ship.length){
+            checkSpace = 0;
+            return true;
+          }else{
           return false;
+        } 
       }
-    }
+      this.freeSpaceY = function(ship,row,col){
+        let checkSpace = 0;
+        for(let i = 0; i < ship.length; i++){
+          if(this.gameGrid[row+i][col] === undefined){
+            checkSpace++;
+          }
+        }
+          if(checkSpace === ship.length){
+            checkSpace = 0;
+            return true;
+          } else {
+            return false;
+        }
+      }
 
-    this.receiveAttack = function(input){
+    this.computerPlaceShips = function(){
+      let input;
+      Object.values(this.ships).forEach(val => {
+      inner:while(placeCount < 5){
+      let random = this.randomCoords();
+      if (random[0] === 0){
+      input = random[1];
+      } else {
+      input = random.join('');
+       if(this.placeShips(val,input)===false){
+        continue inner;
+      } else {
+        this.placeShips(val,input);
+        placeCount++;
+        return this.gameGrid;
+        } 
+        }  
+      }
+    });
+      return check(this.gameGrid);
+  }
+      
+  this.receiveAttack = function(input){
       let coords = this.getCoord(input);
       let row = coords[0];
       let col = coords[1];
-
       if(this.gameGrid[row][col] == undefined){
         let tempArray = [row,col];
         return this.missedShots.push(tempArray);
         } else {
-        Object.values(this.ships).forEach(val => {
-          if (val.name === this.gameGrid[row][col]){
+        Object.values(this.gameboard.ships).forEach(val => {
+          if (val.name === this.gameboard.gameGrid[row][col]){
             val.hit();
             return this.sunkShips();
           }
@@ -78,7 +127,7 @@ class Gameboard {
         if (val.sunk === true){
           this.shipsSunk++;
           }
-        })
+        });
           return this.shipsSunk;
       }
 
@@ -91,8 +140,8 @@ class Gameboard {
     }
     
     this.getCoord = function(input){
-      let array = [];
-        if (input < 10){  
+        let array =[];
+        if(input < 10){
           array[0] = 0;
           array[1] = input;
         } else {
@@ -101,12 +150,29 @@ class Gameboard {
           array[0] = parseInt(doubDigit[0]);
           array[1] = parseInt(doubDigit[1]);
         }
-        return array;
+          return array;
+      }
+      
+      this.randomCoords = function(){
+        let a = (Math.floor(Math.random()*10));
+        let b = (Math.floor(Math.random()*10));
+        return [a,b];
+        }
+    }
+  }
+  
+
+  function check(input){ 
+    let checkArr = [];
+    for(let i = 0; i < input.length; i++){
+      for(let j = 0; j < input[i].length; j++){
+        if (!(input[i][j]===undefined)){
+        checkArr.push(input[i][j]);
       }
     }
-  } 
-
-
+  }
+    console.log(checkArr.length);
+}
 
 
 
