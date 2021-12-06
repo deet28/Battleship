@@ -1,5 +1,5 @@
 const Ship = require ('./ship');
-const Player = require('./player');
+const Player = require('./player.js');
 
 class Gameboard {
   constructor(){
@@ -7,15 +7,33 @@ class Gameboard {
     this.shipsPlaced = 0;
     this.missedShots = [];
     this.shipsSunk = 0;
-    this.xAxis = false;
+    this.xAxis = true;
     this.gameGrid = Array(10).fill().map(()=>Array(10).fill());
     let placeCount = 0;
 
-    this.ships.carrierShip = new Ship('carrierShip',5);
-    this.ships.destroyerShip = new Ship('destroyerShip',4);
-    this.ships.battleShip = new Ship ('battleShip',3);
-    this.ships.submarine = new Ship ('submarine',3);
-    this.ships.patrolBoat = new Ship ('patrolBoat',2);
+    this.ships.carrierShip = new Ship('carrierShip',5,true);
+    this.ships.destroyerShip = new Ship('destroyerShip',4,false);
+    this.ships.battleShip = new Ship ('battleShip',3,false);
+    this.ships.submarine = new Ship ('submarine',3,false);
+    this.ships.patrolBoat = new Ship ('patrolBoat',2,false);
+
+    this.changeShip = function(input){
+      let tempVar = 0;
+      Object.values(input).forEach(val => {
+        if(val.placing == true){
+          val.placing = 'placed';
+         }
+      });
+      Object.values(input).forEach(val => {
+        while(tempVar < 1){
+          if(val.placing === false){
+            val.placing = true;
+            tempVar++;
+          }
+          return tempVar;
+        }
+      });
+    }
 
     this.placeShips = function(ship,input){
       if (this.xAxis === true){
@@ -34,6 +52,7 @@ class Gameboard {
             array[1] = col+i;
           }
           this.shipsPlaced ++;
+          this.changeShip(this.ships);
           return this.gameGrid;
         } 
       } else if(this.xAxis === false){  
@@ -48,7 +67,8 @@ class Gameboard {
           for(let i = 0; i < ship.length; i++){
             this.gameGrid[row+i][col] = ship.name;
           }
-          this.shipsPlaced++
+          this.shipsPlaced++;
+          this.changeShip(this.ships);
           return this.gameGrid;
         }  
       }
@@ -92,6 +112,7 @@ class Gameboard {
       input = random[1];
       } else {
       input = random.join('');
+      this.randomAxis();
        if(this.placeShips(val,input)===false){
         continue inner;
       } else {
@@ -102,7 +123,7 @@ class Gameboard {
         }  
       }
     });
-      return check(this.gameGrid);
+    return check(this.gameGrid);
   }
       
   this.receiveAttack = function(input){
@@ -110,18 +131,20 @@ class Gameboard {
       let row = coords[0];
       let col = coords[1];
       if(this.gameGrid[row][col] == undefined){
-        let tempArray = [row,col];
-        return this.missedShots.push(tempArray);
+        let miss = [row,col];
+        this.gameGrid[row][col] = 'miss';
+        this.missedShots.push(miss);
         } else {
-        Object.values(this.gameboard.ships).forEach(val => {
-          if (val.name === this.gameboard.gameGrid[row][col]){
+        Object.values(this.ships).forEach(val => {
+          if (val.name === this.gameGrid[row][col]){
             val.hit();
+            this.gameGrid[row][col] = 'hit';
             return this.sunkShips();
           }
         })
       }
     }
-    
+
     this.sunkShips = function (){
       Object.values(this.ships).forEach(val => {
         if (val.sunk === true){
@@ -158,10 +181,25 @@ class Gameboard {
         let b = (Math.floor(Math.random()*10));
         return [a,b];
         }
+      this.randomAxis = function(){
+        let a = (Math.floor(Math.random()*2));
+        if (a < 1){
+          this.xAxis = false;
+        } else {
+          this.xAxis = true;
+        }
+        return this.xAxis;
+      }
+      this.changeAxis = function (){
+        if(this.xAxis === true){
+          this.xAxis = false;
+        } else {
+          this.xAxis = true;
+        }
+      }
     }
   }
   
-
   function check(input){ 
     let checkArr = [];
     for(let i = 0; i < input.length; i++){

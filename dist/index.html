@@ -6,13 +6,21 @@
     <script src = "main.js" defer></script>
   </head>
     <body>
-    <div class = 'headers'></div>
+    <div class = 'headers'>
+      <h1 class = 'title'>Battleship</h1>
+    </div>
       <div class = 'button-div'>
-      <button class = 'axis-button'></button>
+      <input type = 'text' class = 'enter-name hidden'>
+      <button class = 'make-player'>Create Player</button>
+      <button class = 'submit hidden'>Enter Name</button>
+      <button class = 'axis-button hidden'>Change Axis</button>
     </div>
     <div class = 'game-div'>
-      <div class = 'player-one-board'></div>
-      <div class = 'player-two-board'></div>
+      <div class = 'player-one-board hidden'></div>
+      <div class = 'player-two-board hidden'></div>
+    </div>
+    <div class = 'start-game'>
+      <button class = 'start-button hidden'>Start Game</button>
     </div>
     </body>
   
