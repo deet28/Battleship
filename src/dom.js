@@ -18,29 +18,40 @@ function startSetUp(){
   return enterName;
 }
 
-function playerCreation(){
+function playerOneCreation(){
   playerOne = new Player(enterName.value,'One');
   playerTwo = new Player('Computer','Two');
   playerOneBoard.classList.remove('hidden');
   playerTwoBoard.classList.remove('hidden');
-
   playerOne.makePlayerBoard();
-  playerTwo.makePlayerBoard();
-
   clickToPlace();
   enterName.classList.add('hidden');
   submitName.classList.add('hidden');
   axisButton.classList.remove('hidden');
-  
   return playerOne;
 }
 
-//need to make it so hover over grid to click function.
+function playerTwoCreation(){
+  playerTwo = new Player('Computer','Two');
+  playerTwo.makePlayerBoard();
+  playerTwoBoard.classList.remove('hidden');
+  playerTwo.gameboard.computerPlaceShips();
+  playerTwo.displayShips();
+  axisButton.classList.add('hidden');
+}
+
+function clickToPlace(){
+  for(let i = 0; i < playerOne.playerBoard.children.length; i++){
+    playerOne.playerBoard.children[i].addEventListener('click',dropShips);
+    playerOne.playerBoard.children[i].addEventListener('mouseover',showHover)
+    playerOne.playerBoard.children[i].addEventListener('mouseleave',removeHover);
+  }
+}
 
 function dropShips(e){
   let place;
   for(let i = 0; i < playerOne.playerBoard.children.length;i++){
-    if (e.target == playerOne.playerBoard.children[i]){
+    if (e.target==playerOne.playerBoard.children[i]){
       place = i; 
     }
   }
@@ -48,21 +59,133 @@ function dropShips(e){
     if(val.placing == true){
       playerOne.gameboard.placeShips(val,place);
       playerOne.displayShips();
+      if(playerOne.gameboard.shipsPlaced===5){
+        playerTwoCreation();
+      }
       return playerOne.gameboard;
     } 
   });
   console.log(place);
 }
-
-function clickToPlace(){
-  for(let i = 0; i < playerOne.playerBoard.children.length; i++){
-    playerOne.playerBoard.children[i].addEventListener('click',dropShips);
+function changeAxis () {
+  if(playerOne.gameboard.xAxis == true){
+    playerOne.gameboard.xAxis = false;
+  } else {
+    playerOne.gameboard.xAxis = true;
   }
 }
 
+function showHover(e){
+  let tempLength;
+  let place;
+    Object.values(playerOne.gameboard.ships).forEach(val => {
+      if(val.placing == true){
+        tempLength = val.length;
+      } 
+      if(playerOne.gameboard.xAxis === true){
+        for(let i = 0; i < playerOne.playerBoard.children.length; i++){
+          if(e.target == playerOne.playerBoard.children[i]){
+            place = i;
+            if(noOverLapHoverX(tempLength,place)===false){
+            playerOne.playerBoard.children[i].classList.add('red-test');
+          } else{
+            for(let i = 0; i < tempLength; i++){
+               playerOne.playerBoard.children[place+i].classList.add('test');
+            }
+          }
+        }
+      }
+    } else if(playerOne.gameboard.xAxis === false){
+      for(let i = 0; i < playerOne.playerBoard.children.length; i++){
+        if(e.target == playerOne.playerBoard.children[i]){
+          place = i;
+            if(noOverLapHoverY(tempLength,place)===false){
+            playerOne.playerBoard.children[i].classList.add('red-test');
+          } else {
+          for(let i = 0; i < tempLength; i++){
+            let tempArr = [i,0];
+            let tempVar = parseInt(tempArr.join(''));
+            playerOne.playerBoard.children[place+tempVar].classList.add('test');
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+function removeHover(){
+  for(let i = 0; i < playerOne.playerBoard.children.length;i++){
+      playerOne.playerBoard.children[i].classList.remove('test');
+      playerOne.playerBoard.children[i].classList.remove('red-test');
+   }
+}
+
+function noOverLapHoverX (input,coord){
+  let tempVar = coord.toString();
+    if(input === 5){
+      if(tempVar.endsWith(6)===true 
+        ||tempVar.endsWith(7)===true
+        ||tempVar.endsWith(8)===true
+        ||tempVar.endsWith(9)===true){
+          return false;    
+        }}
+    else if (input === 4){
+      if(tempVar.endsWith(7)===true
+        ||tempVar.endsWith(8)===true
+        ||tempVar.endsWith(9)===true){
+          return false;
+        }} 
+    else if (input === 3){
+      if (tempVar.endsWith(8)===true
+        ||tempVar.endsWith(9)===true){
+          return false;
+        }} 
+    else if (input === 2){
+      if(tempVar.endsWith(9)===true){
+          return false;
+      }
+    }
+};
+
+function noOverLapHoverY (input,coord){
+    let tempVar = coord.toString();
+      if(input === 5){
+        if(tempVar.startsWith(6)===true 
+          ||tempVar.startsWith(7)===true
+          ||tempVar.startsWith(8)===true
+          ||tempVar.startsWith(9)===true){
+            return false;    
+          }}
+      else if (input === 4){
+        if(tempVar.startsWith(7)===true
+          ||tempVar.startsWith(8)===true
+          ||tempVar.startsWith(9)===true){
+            return false;
+          }} 
+      else if (input === 3){
+        if (tempVar.startsWith(8)===true
+          ||tempVar.startsWith(9)===true){
+            return false;
+          }} 
+      else if (input === 2){
+        if(tempVar.startsWith(9)===true){
+            return false;
+      }
+    }
+};
+
+
+
+
+
+
+
+
+
 makePlayer.addEventListener('click',startSetUp);
-submitName.addEventListener('click',playerCreation);
-axisButton.addEventListener('click',dropShips);
+submitName.addEventListener('click',playerOneCreation);
+axisButton.addEventListener('click',changeAxis);
 
 module.exports = dropShips;
 

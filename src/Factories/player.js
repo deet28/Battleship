@@ -129,8 +129,5 @@ class Player {
 
   //test.displayShips();
   //test2.displayShips();
-
-
-//still need a function to let computer randomly place ships.
-//still need a function to change missed squares to grey.
+  
   module.exports = Player;
