@@ -55,10 +55,10 @@ class Gameboard {
           this.changeShip(this.ships);
           return this.gameGrid;
         } 
-      } else if(this.xAxis === false){  
-        let coord = this.getCoord (input);
-        let row = coord[0];
-        let col = coord[1];
+        } else if(this.xAxis === false){  
+          let coord = this.getCoord (input);
+          let row = coord[0];
+          let col = coord[1];
         if (ship.length + row > 10){
           return false;
         } else if (this.freeSpaceY(ship,row,col) === false){
@@ -226,12 +226,6 @@ class Gameboard {
   }
     console.log(checkArr.length);
 }
-
-//let newPlay = new Gameboard ('hello');
-//
-//console.log(newPlay.receiveAttack([0,3]));
-
-
 
 
 //original gameboard.

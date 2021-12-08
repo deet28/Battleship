@@ -92,6 +92,7 @@ body{
   cursor:pointer;
   border: 1px solid black;
 }
+
 .player-two-board{
   max-height: 400px;
   max-width:350px;

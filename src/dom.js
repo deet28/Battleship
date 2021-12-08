@@ -51,6 +51,7 @@ function gamePlay(e){
     for (let i = 0; i < playerTwo.playerBoard.children.length;i++){
       if (e.target == playerTwo.playerBoard.children[i]){
         coord = i;
+        playerTwo.playerBoard.children[i].removeEventListener('click',gamePlay);
       }
     }
     playerOne.turn(attacked,coord);
@@ -88,6 +89,7 @@ function dropShips(e){
     } 
   });
 }
+
 function changeAxis () {
   if(playerOne.gameboard.xAxis == true){
     playerOne.gameboard.xAxis = false;

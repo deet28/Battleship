@@ -132,24 +132,4 @@ class Player {
   }
   module.exports = Player;
 
-  //original computer attack function.
 
-  //    this.computerAttack = function(){
-//      inner:while(tempCount < 1 ){
-//        let input = this.randomCoord();
-//        console.log(input);
-//        for(let i = -1; i < this.attacks.length; i++){
-//          if((`${[input]}` == `${this.attacks[i]}`)){
-//            console.log(input);
-//            continue inner;
-//           } else {
-//            newAttack = input;
-//            tempCount++;
-//            this.attacks.push(newAttack);
-//            tempCount--;
-//            console.log(this.attacks);
-//            return newAttack;
-//          }
-//      };
-//    }
-//  }
