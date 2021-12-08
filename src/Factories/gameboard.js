@@ -125,24 +125,35 @@ class Gameboard {
     });
     return check(this.gameGrid);
   }
+
+  //problem is computer attacks are already in array form. 
       
   this.receiveAttack = function(input){
-      let coords = this.getCoord(input);
-      let row = coords[0];
-      let col = coords[1];
+    let coords;
+    let row;
+    let col;
+    if (this.getCoord(input)==false){
+      row = input[0];
+      col = input[1];
+    } else {
+      coords = this.getCoord(input);
+      row = coords[0];
+      col = coords[1];
+    }
       if(this.gameGrid[row][col] == undefined){
         let miss = [row,col];
         this.gameGrid[row][col] = 'miss';
         this.missedShots.push(miss);
         } else {
         Object.values(this.ships).forEach(val => {
-          if (val.name === this.gameGrid[row][col]){
+          if (val.name == this.gameGrid[row][col]){
             val.hit();
             this.gameGrid[row][col] = 'hit';
-            return this.sunkShips();
+            this.sunkShips();
           }
         })
       }
+      return this.gameGrid;
     }
 
     this.sunkShips = function (){
@@ -163,7 +174,10 @@ class Gameboard {
     }
     
     this.getCoord = function(input){
-        let array =[];
+      let array =[];
+      if(Array.isArray(input)){
+        return false;
+      } else {
         if(input < 10){
           array[0] = 0;
           array[1] = input;
@@ -173,7 +187,8 @@ class Gameboard {
           array[0] = parseInt(doubDigit[0]);
           array[1] = parseInt(doubDigit[1]);
         }
-          return array;
+      }
+        return array;
       }
       
       this.randomCoords = function(){
@@ -211,6 +226,11 @@ class Gameboard {
   }
     console.log(checkArr.length);
 }
+
+//let newPlay = new Gameboard ('hello');
+//
+//console.log(newPlay.receiveAttack([0,3]));
+
 
 
 

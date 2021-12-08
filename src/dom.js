@@ -10,7 +10,6 @@ const playerTwoBoard = document.querySelector('.player-two-board');
 let playerOne;
 let playerTwo;
 
-
 function startSetUp(){
   enterName.classList.remove('hidden');
   makePlayer.classList.add('hidden');
@@ -37,7 +36,30 @@ function playerTwoCreation(){
   playerTwoBoard.classList.remove('hidden');
   playerTwo.gameboard.computerPlaceShips();
   playerTwo.displayShips();
+    for(let i = 0; i < playerTwo.playerBoard.children.length;i++){
+      playerOne.playerBoard.children[i].classList.remove('place-ship-tile');
+      playerTwo.playerBoard.children[i].classList.add('attack-ship-tile')
+      playerTwo.playerBoard.children[i].addEventListener('click',gamePlay);
+    }
   axisButton.classList.add('hidden');
+};
+
+function gamePlay(e){
+  if(playerOne.playerTurn == true){
+    let attacked = playerTwo;
+    let coord;
+    for (let i = 0; i < playerTwo.playerBoard.children.length;i++){
+      if (e.target == playerTwo.playerBoard.children[i]){
+        coord = i;
+      }
+    }
+    playerOne.turn(attacked,coord);
+    playerOne.playerTurn = false;
+    playerTwo.turn(playerOne);
+    playerOne.playerTurn = true;
+  }
+  playerOne.displayShips();
+  playerTwo.displayShips();
 }
 
 function clickToPlace(){
@@ -65,7 +87,6 @@ function dropShips(e){
       return playerOne.gameboard;
     } 
   });
-  console.log(place);
 }
 function changeAxis () {
   if(playerOne.gameboard.xAxis == true){
@@ -176,16 +197,34 @@ function noOverLapHoverY (input,coord){
 };
 
 
-
-
-
-
-
-
-
 makePlayer.addEventListener('click',startSetUp);
 submitName.addEventListener('click',playerOneCreation);
 axisButton.addEventListener('click',changeAxis);
 
 module.exports = dropShips;
 
+
+
+//this.computerAttack = function(){
+//  outer:while(tempCount < 1 ){
+//    attackCount = 0;
+//    let input = this.randomCoord();
+//    console.log(input);
+//    for(let i = -1; i < this.attacks.length; i++){
+//      let a = this.attacks[i];
+//        if (this.arrayEquality(input,a)===false){
+//          attackCount++;
+//        } if (attackCount < this.attacks.length-1){
+//          continue outer;
+//        } else {
+//        newAttack = input;
+//        tempCount++;
+//        this.attacks.push(newAttack);
+//        tempCount = 0;
+//        attackCount = 0;
+//        console.log(this.attacks);
+//        return newAttack;
+//      }
+//    }
+//  };
+//}

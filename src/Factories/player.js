@@ -15,8 +15,10 @@ class Player {
 
     if(this.player == 'One'){
       this.playerBoard = playerOneBoard
+      this.playerTurn = true;
     } else {
       this.playerBoard = playerTwoBoard;
+      this.playerTurn = false;
     }
 
     this.makePlayerBoard = function(){
@@ -49,7 +51,7 @@ class Player {
         } else if (this.gameboard.gameGrid[i][j] == 'miss'){
           let iter = this.translateCoord(i,j);
           this.playerBoard.children[iter].classList.add('attack-missed');
-        } else if (!(this.gameboard.gameGrid[i][j] == undefined)){
+        } else if (!(this.gameboard.gameGrid[i][j] == undefined)&&this.player == 'One'){
            let iter = this.translateCoord(i,j);
            this.playerBoard.children[iter].classList.add('piece-placed');
           }
@@ -59,44 +61,67 @@ class Player {
     }
     this.turn = function(player,input){
       if(this.name == 'Computer'){
-        let tempAttack = this.computerAttack()
-        return player.gameboard.receiveAttack(tempAttack.join(''));
+        let tempAttack = this.computerAttack();
+        player.gameboard.receiveAttack(tempAttack);
+        tempAttack = 0;
       } else {
         input = input;
-        return player.gameboard.receiveAttack(input);
+        player.gameboard.receiveAttack(input);
       }
     }
-    
     this.computerAttack = function(){
-      outer:while(tempCount === 0 ){
+      outer:while(tempCount < 1){
         let input = this.randomCoord();
-        for(let i = -1; i < this.attacks.length; i++){
-          if((!(`${[input]}` == `${this.attacks[i]}`))){
+        console.log(input);
+        if(this.computerAttackCheck(input)===false){
+          continue outer;
+        } else {
             newAttack = input;
             tempCount++;
-          } else if (tempCount === 0){
-            continue outer;
+            this.attacks.push(newAttack);
+            tempCount = 0;
+            console.log(this.attacks);
+            return newAttack;
+          }
         }
-        return this.displayShips();
       };
-        this.attacks.push(newAttack);
-        tempCount--;
-        return newAttack;
+      this.computerAttackCheck = function(input){
+        let counter = 0;
+        if (this.attacks.length === 0){
+          return true;
+        } else {
+          for(let i = 0; i < this.attacks.length;i++){
+            let attack = this.attacks[i];
+            if(this.arrayEquality(input,attack)===false){
+              counter++;
+              }
+            }
+            if(counter == this.attacks.length){
+              return true;
+          } else {
+            return false;
+          }
+        } 
       }
       
-    }
-    this.translateCoord = function(i,j){
-      let tempArr = [];
-      tempArr.push(i);
-      tempArr.push(j);
-      let tempVar;
-      if(tempArr[0] < 1){
-        tempVar = j;
-      } else {
-        tempVar = tempArr.join('');
+      this.arrayEquality = function(a,b){
+        return Array.isArray(a) &&
+          Array.isArray(b) &&
+            a.length === b.length &&
+            a.every((val, index) => val === b[index]);
       }
-      return tempVar;
-    }
+      this.translateCoord = function(i,j){
+        let tempArr = [];
+        tempArr.push(i);
+        tempArr.push(j);
+        let tempVar = 0;
+        if(tempArr[0] < 1){
+          tempVar = j;
+        } else {
+          tempVar = tempArr.join('');
+        }
+          return tempVar;
+      }
 
     this.randomCoord = function(){
       let a = (Math.floor(Math.random()*10));
@@ -105,29 +130,26 @@ class Player {
       }
     }
   }
-  //Creating two players. Appending tiles to boards.
-  //const test = new Player('David','One');
-  //test.makePlayerBoard();
-  //const test2 = new Player('Computer','Two');
-  //test2.makePlayerBoard();
-  //test2.gameboard.computerPlaceShips();
-
-
-  //placing ships on player one gameboard.s
-  //test.gameboard.placeShips(test.gameboard.ships.carrierShip,00);
-  //test.gameboard.placeShips(test.gameboard.ships.destroyerShip,11);
-  //test.gameboard.placeShips(test.gameboard.ships.battleShip,22);
-  //test.gameboard.placeShips(test.gameboard.ships.submarine,33);
-  //test.gameboard.placeShips(test.gameboard.ships.patrolBoat,44);
-
-  //test.gameboard.receiveAttack(00);
-  //test.gameboard.receiveAttack(10);
-  //test2.gameboard.receiveAttack(12);
-  //console.log(test.gameboard.gameGrid);
-  //console.log(test2.gameboard.gameGrid);
-  ////test.displayHits();
-
-  //test.displayShips();
-  //test2.displayShips();
-  
   module.exports = Player;
+
+  //original computer attack function.
+
+  //    this.computerAttack = function(){
+//      inner:while(tempCount < 1 ){
+//        let input = this.randomCoord();
+//        console.log(input);
+//        for(let i = -1; i < this.attacks.length; i++){
+//          if((`${[input]}` == `${this.attacks[i]}`)){
+//            console.log(input);
+//            continue inner;
+//           } else {
+//            newAttack = input;
+//            tempCount++;
+//            this.attacks.push(newAttack);
+//            tempCount--;
+//            console.log(this.attacks);
+//            return newAttack;
+//          }
+//      };
+//    }
+//  }
