@@ -11,11 +11,11 @@ class Gameboard {
     this.gameGrid = Array(10).fill().map(()=>Array(10).fill());
     let placeCount = 0;
 
-    this.ships.carrierShip = new Ship('carrierShip',5,true);
-    this.ships.destroyerShip = new Ship('destroyerShip',4,false);
-    this.ships.battleShip = new Ship ('battleShip',3,false);
-    this.ships.submarine = new Ship ('submarine',3,false);
-    this.ships.patrolBoat = new Ship ('patrolBoat',2,false);
+    this.ships.carrierShip = new Ship('Carrier',5,true);
+    this.ships.destroyerShip = new Ship('Destroyer',4,false);
+    this.ships.battleShip = new Ship ('Battleship',3,false);
+    this.ships.submarine = new Ship ('Submarine',3,false);
+    this.ships.patrolBoat = new Ship ('Patrol Boat',2,false);
 
     this.changeShip = function(input){
       let tempVar = 0;
@@ -125,9 +125,6 @@ class Gameboard {
     });
     return check(this.gameGrid);
   }
-
-  //problem is computer attacks are already in array form. 
-      
   this.receiveAttack = function(input){
     let coords;
     let row;
@@ -159,14 +156,14 @@ class Gameboard {
     this.sunkShips = function (){
       Object.values(this.ships).forEach(val => {
         if (val.sunk === true){
+          console.log(val);
           this.shipsSunk++;
           }
         });
-          return this.shipsSunk;
       }
 
     this.allShipsSunk = function(){
-      if (this.shipsSunk == 5){
+      if (this.shipsSunk === 5){
           return true;
         } else {
           return false;

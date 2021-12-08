@@ -69,10 +69,10 @@ class Player {
         player.gameboard.receiveAttack(input);
       }
     }
+    
     this.computerAttack = function(){
       outer:while(tempCount < 1){
         let input = this.randomCoord();
-        console.log(input);
         if(this.computerAttackCheck(input)===false){
           continue outer;
         } else {
@@ -80,11 +80,11 @@ class Player {
             tempCount++;
             this.attacks.push(newAttack);
             tempCount = 0;
-            console.log(this.attacks);
             return newAttack;
           }
         }
       };
+      
       this.computerAttackCheck = function(input){
         let counter = 0;
         if (this.attacks.length === 0){
@@ -110,6 +110,7 @@ class Player {
             a.length === b.length &&
             a.every((val, index) => val === b[index]);
       }
+      
       this.translateCoord = function(i,j){
         let tempArr = [];
         tempArr.push(i);
@@ -123,10 +124,10 @@ class Player {
           return tempVar;
       }
 
-    this.randomCoord = function(){
-      let a = (Math.floor(Math.random()*10));
-      let b = (Math.floor(Math.random()*10));
-      return [a,b];
+      this.randomCoord = function(){
+        let a = (Math.floor(Math.random()*10));
+        let b = (Math.floor(Math.random()*10));
+        return [a,b];
       }
     }
   }

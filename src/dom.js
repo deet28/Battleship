@@ -7,8 +7,12 @@ const submitName = document.querySelector('.submit');
 const axisButton = document.querySelector('.axis-button');
 const playerOneBoard = document.querySelector('.player-one-board');
 const playerTwoBoard = document.querySelector('.player-two-board');
+const gameText = document.querySelector('.game-text');
+const restartButton = document.querySelector('.restart');
 let playerOne;
 let playerTwo;
+
+//game set up.
 
 function startSetUp(){
   enterName.classList.remove('hidden');
@@ -18,16 +22,33 @@ function startSetUp(){
 }
 
 function playerOneCreation(){
-  playerOne = new Player(enterName.value,'One');
+  let name = nameCheck(enterName.value);  
+  playerOne = new Player(name,'One');
   playerTwo = new Player('Computer','Two');
   playerOneBoard.classList.remove('hidden');
   playerTwoBoard.classList.remove('hidden');
+  let playerOneName = document.querySelector('.player-one-name');
+  playerOneName.textContent = name;
   playerOne.makePlayerBoard();
   clickToPlace();
+  
   enterName.classList.add('hidden');
   submitName.classList.add('hidden');
   axisButton.classList.remove('hidden');
-  return playerOne;
+  gameText.textContent = 'Click to place your ships.'
+  console.log(playerOne.gameboard.ships);
+}
+
+function nameCheck(input){
+  let name;
+  let regex = new RegExp(/^computer$/gi);
+  if(regex.test(input)===true){
+    name = 'Imposter!';
+    return name;
+  } else {
+    name = input;
+    return name;
+  }
 }
 
 function playerTwoCreation(){
@@ -41,8 +62,13 @@ function playerTwoCreation(){
       playerTwo.playerBoard.children[i].classList.add('attack-ship-tile')
       playerTwo.playerBoard.children[i].addEventListener('click',gamePlay);
     }
+  let playerTwoName = document.querySelector('.player-two-name');
+  playerTwoName.textContent = 'Computer';
   axisButton.classList.add('hidden');
+  gameText.textContent = 'Attack the computer board!'
 };
+
+//functions for game play
 
 function gamePlay(e){
   if(playerOne.playerTurn == true){
@@ -54,19 +80,53 @@ function gamePlay(e){
         playerTwo.playerBoard.children[i].removeEventListener('click',gamePlay);
       }
     }
-    playerOne.turn(attacked,coord);
-    playerOne.playerTurn = false;
-    playerTwo.turn(playerOne);
-    playerOne.playerTurn = true;
-  }
-  playerOne.displayShips();
-  playerTwo.displayShips();
+      playerOne.turn(attacked,coord);
+      playerOne.playerTurn = false;
+
+      playerTwo.turn(playerOne);
+      playerOne.playerTurn = true;
+      checkWinner(playerOne);
+      checkWinner(playerTwo);
+    }
+  
+      playerOne.displayShips();
+      playerTwo.displayShips();
 }
+
+function checkWinner(input){
+  let count = 0; 
+  Object.values(input.gameboard.ships).forEach (val => {
+    if (val.sunk == true){
+      count ++;
+    };
+    if (count === 5){
+      gameText.textContent = `${input.name} has lost! All of their ships have been sunk!`;
+          for (let i = 0; i < playerOne.playerBoard.children.length; i++){
+          playerOne.playerBoard.children[i].removeEventListener('click',gamePlay);
+          for (let i = 0; i < playerTwo.playerBoard.children.length; i++){
+          playerTwo.playerBoard.children[i].removeEventListener('click',gamePlay);
+          restartButton.classList.remove('hidden');
+          restartButton.addEventListener('click',playAgain);
+          }
+        }
+      }
+    })
+}
+
+//function gameFeed(input){
+//  Object.values(input.gameboard.ships).forEach (val => {
+//    if (val.sunk === true){
+//      gameText.textContent = `${input.name}'s ${val.name} has been sunk!`;
+//    }
+//  })
+
+
+//functions for placing ships.
 
 function clickToPlace(){
   for(let i = 0; i < playerOne.playerBoard.children.length; i++){
     playerOne.playerBoard.children[i].addEventListener('click',dropShips);
-    playerOne.playerBoard.children[i].addEventListener('mouseover',showHover)
+    playerOne.playerBoard.children[i].addEventListener('mouseover',showHover);
     playerOne.playerBoard.children[i].addEventListener('mouseleave',removeHover);
   }
 }
@@ -79,7 +139,7 @@ function dropShips(e){
     }
   }
   Object.values(playerOne.gameboard.ships).forEach(val => {
-    if(val.placing == true){
+    if(val.placing === true){
       playerOne.gameboard.placeShips(val,place);
       playerOne.displayShips();
       if(playerOne.gameboard.shipsPlaced===5){
@@ -98,6 +158,8 @@ function changeAxis () {
   }
 }
 
+//Showing and removing hover over squares when placing ships.
+
 function showHover(e){
   let tempLength;
   let place;
@@ -113,7 +175,7 @@ function showHover(e){
             playerOne.playerBoard.children[i].classList.add('red-test');
           } else{
             for(let i = 0; i < tempLength; i++){
-               playerOne.playerBoard.children[place+i].classList.add('test');
+               playerOne.playerBoard.children[place+i].classList.add('piece-hover');
             }
           }
         }
@@ -128,7 +190,7 @@ function showHover(e){
           for(let i = 0; i < tempLength; i++){
             let tempArr = [i,0];
             let tempVar = parseInt(tempArr.join(''));
-            playerOne.playerBoard.children[place+tempVar].classList.add('test');
+            playerOne.playerBoard.children[place+tempVar].classList.add('piece-hover');
             }
           }
         }
@@ -139,7 +201,7 @@ function showHover(e){
 
 function removeHover(){
   for(let i = 0; i < playerOne.playerBoard.children.length;i++){
-      playerOne.playerBoard.children[i].classList.remove('test');
+      playerOne.playerBoard.children[i].classList.remove('piece-hover');
       playerOne.playerBoard.children[i].classList.remove('red-test');
    }
 }
@@ -197,6 +259,10 @@ function noOverLapHoverY (input,coord){
       }
     }
 };
+
+function playAgain(){
+    window.location.reload;
+}
 
 
 makePlayer.addEventListener('click',startSetUp);
