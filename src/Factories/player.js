@@ -1,5 +1,5 @@
 const Gameboard = require('./gameboard');
-//const dropShips = require('../dom');
+//const playerOneCreation = require('../dom');
 
 const playerOneBoard = document.querySelector('.player-one-board');
 const playerTwoBoard = document.querySelector('.player-two-board');
@@ -10,6 +10,7 @@ class Player {
     this.player = player;
     this.gameboard = new Gameboard();
     this.attacks = [];
+    this.hitsArray = [];
     let newAttack;
     let tempCount = 0;
 
@@ -72,20 +73,31 @@ class Player {
     }
     
     this.computerAttack = function(){
-      outer:while(tempCount < 1){
+        let input = this.computerAI();
+        if(!(this.computerAttackCheck(input))===false){
+          newAttack = input;
+          this.attacks.push(newAttack)
+          return newAttack;
+      } else {
+        outer:while(tempCount < 1){
         let input = this.randomCoord();
         if(this.computerAttackCheck(input)===false){
           continue outer;
         } else {
-            newAttack = input;
-            tempCount++;
-            this.attacks.push(newAttack);
-            tempCount = 0;
-            return newAttack;
+          newAttack = input;
+          tempCount++;
+          this.attacks.push(newAttack);
+          tempCount = 0;
+          return newAttack;
           }
-        }
-      };
+       }
+        
+      } 
+    };
       this.computerAttackCheck = function(input){
+        if(input === undefined){
+          return false;
+        }
         let counter = 0;
         if (this.attacks.length === 0){
           return true;
@@ -100,6 +112,23 @@ class Player {
               return true;
           } else {
             return false;
+          }
+        } 
+      }
+      this.computerAI = function(){
+        let array = [];
+        for(let i = 0; i < playerOneBoard.children.length;i++){
+          if (playerOneBoard.children[i].classList.contains('attack-landed')){
+            if(this.hitsArray.includes(i)===false){
+              this.hitsArray.push(i);
+              let right = i+1;
+              let coords = Array.from(right.toString());
+              array[0] = parseInt(coords[0]);
+              array[1] = parseInt(coords[1]);
+              return array;
+              //console.log(this.hitsArray);
+              }
+            console.log(this.hitsArray);
           }
         } 
       }

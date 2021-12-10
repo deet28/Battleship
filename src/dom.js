@@ -263,7 +263,7 @@ makePlayer.addEventListener('click',startSetUp);
 submitName.addEventListener('click',playerOneCreation);
 axisButton.addEventListener('click',changeAxis);
 
-module.exports = dropShips;
+//module.exports = playerOneCreation();
 
 
 

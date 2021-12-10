@@ -120,9 +120,9 @@ class Gameboard {
         placeCount++;
         return this.gameGrid;
         } 
-        }  
-      }
-    });
+      }  
+    }
+  });
     return check(this.gameGrid);
   }
   this.receiveAttack = function(input){
