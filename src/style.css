@@ -25,19 +25,27 @@ body{
   align-items:center;
 }
 .make-player{
-  width:8rem;
-  height:2rem;
-  height:30px;
+  background-color: rgb(110, 113, 255);
+  color: white;
+  width:8em;
+  height:2em;
   font-size:18px;
+  box-sizing: border-box;
+  border-radius:5px;
+  border:0;
 }
 .make-player:hover{
   cursor: pointer;
 }
 .submit{
-  width:8rem;
-  height:2rem;
-  height:30px;
+  background-color: rgb(110, 113, 255);
+  color: white;
+  width:8em;
+  height:2em;
   font-size:18px;
+  box-sizing: border-box;
+  border-radius:5px;
+  border:0;
 }
 .submit:hover{
   cursor: pointer;
@@ -51,13 +59,30 @@ body{
   border: 1px solid gray;
 }
 .axis-button{
-  width:8rem;
-  height:2rem;
-  height:30px;
-  font-size: 18px;
+  background-color: rgb(110, 113, 255);
+  color: white;
+  width:8em;
+  height:2em;
+  font-size:18px;
+  box-sizing: border-box;
+  border-radius:5px;
+  border:0;
 }
 .axis-button:hover{
   cursor: pointer;
+}
+.restart{
+  background-color: rgb(110, 113, 255);
+  color: white;
+  width:8em;
+  height:2em;
+  font-size:18px;
+  box-sizing: border-box;
+  border-radius:5px;
+  border:0;
+}
+.restart:hover{
+  cursor:pointer;
 }
 .game-div{
   display:grid;
@@ -130,7 +155,19 @@ body{
 .start-button:hover{
   cursor:pointer;
 }
-.red-test{
+.restart-div{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.hidden{
+  display: none;
+}
+.board-disable{
+  pointer-events:none;
+}
+
+.no-room{
   background-color: red;
 }
 .attack-landed{
@@ -144,23 +181,4 @@ body{
 }
 .piece-placed{
   background-color: blue;
-}
-
-.restart-div{
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-.restart{
-  width:8rem;
-  height:2rem;
-  height:30px;
-  font-size: 18px;
-  margin-top:1rem;
-}
-.restart:hover{
-  cursor:pointer;
-}
-.hidden{
-  display: none;
 }

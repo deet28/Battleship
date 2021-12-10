@@ -59,6 +59,7 @@ class Player {
       }
       return this.playerBoard;
     }
+    
     this.turn = function(player,input){
       if(this.name == 'Computer'){
         let tempAttack = this.computerAttack();
@@ -84,7 +85,6 @@ class Player {
           }
         }
       };
-      
       this.computerAttackCheck = function(input){
         let counter = 0;
         if (this.attacks.length === 0){
