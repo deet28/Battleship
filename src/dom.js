@@ -35,7 +35,6 @@ function playerOneCreation(){
   submitName.classList.add('hidden');
   axisButton.classList.remove('hidden');
   gameText.textContent = 'Click to place your ships.'
-  console.log(playerOne.gameboard.ships);
 }
 
 function playerTwoCreation(){

@@ -119,11 +119,10 @@ class Gameboard {
         this.placeShips(val,input);
         placeCount++;
         return this.gameGrid;
-        } 
-      }  
-    }
-  });
-    return check(this.gameGrid);
+          } 
+        }  
+      }
+    });
   }
   this.receiveAttack = function(input){
     let coords;
@@ -174,6 +173,8 @@ class Gameboard {
       let array =[];
       if(Array.isArray(input)){
         return false;
+      } else if(input[1]<0) {
+        return false;
       } else {
         if(input < 10){
           array[0] = 0;
@@ -212,18 +213,18 @@ class Gameboard {
     }
   }
   
-  function check(input){ 
-    let checkArr = [];
-    for(let i = 0; i < input.length; i++){
-      for(let j = 0; j < input[i].length; j++){
-        if (!(input[i][j]===undefined)){
-        checkArr.push(input[i][j]);
-      }
-    }
-  }
-    console.log(checkArr.length);
-}
-
+//  function check(input){ 
+//    let checkArr = [];
+//    for(let i = 0; i < input.length; i++){
+//      for(let j = 0; j < input[i].length; j++){
+//        if (!(input[i][j]===undefined)){
+//        checkArr.push(input[i][j]);
+//      }
+//    }
+//  }
+//    console.log(checkArr.length);
+//}
+//
 
 //original gameboard.
 
