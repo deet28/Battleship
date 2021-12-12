@@ -124,18 +124,18 @@ class Gameboard {
       }
     });
   }
-  this.receiveAttack = function(input){
-    let coords;
-    let row;
-    let col;
-    if (this.getCoord(input)==false){
-      row = input[0];
-      col = input[1];
-    } else {
-      coords = this.getCoord(input);
-      row = coords[0];
-      col = coords[1];
-    }
+    this.receiveAttack = function(input){
+      let coords;
+      let row;
+      let col;
+      if (this.getCoord(input)==false){
+        row = input[0];
+        col = input[1];
+      } else {
+        coords = this.getCoord(input);
+        row = coords[0];
+        col = coords[1];
+      }
       if(this.gameGrid[row][col] == undefined){
         let miss = [row,col];
         this.gameGrid[row][col] = 'miss';
@@ -193,7 +193,7 @@ class Gameboard {
         let a = (Math.floor(Math.random()*10));
         let b = (Math.floor(Math.random()*10));
         return [a,b];
-        }
+      }
       this.randomAxis = function(){
         let a = (Math.floor(Math.random()*2));
         if (a < 1){
@@ -212,19 +212,6 @@ class Gameboard {
       }
     }
   }
-  
-//  function check(input){ 
-//    let checkArr = [];
-//    for(let i = 0; i < input.length; i++){
-//      for(let j = 0; j < input[i].length; j++){
-//        if (!(input[i][j]===undefined)){
-//        checkArr.push(input[i][j]);
-//      }
-//    }
-//  }
-//    console.log(checkArr.length);
-//}
-//
 
 //original gameboard.
 

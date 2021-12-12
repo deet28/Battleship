@@ -9,7 +9,7 @@ class Player {
     this.player = player;
     this.gameboard = new Gameboard();
     this.attacks = [];
-    this.trackedAttacks = [];
+    this.trackedAttacksAI = [];
     this.hitsArray = [];
     let newAttack;
     let tempCount = 0;
@@ -76,26 +76,24 @@ class Player {
         let input = this.computerAI();
         if(!(this.computerAttackCheck(input))===false){
           newAttack = input;
-          let newTracked = input.join('');
-          this.trackedAttacks.push(parseInt(newTracked));
+          this.trackedAttacksAI.push(parseInt(newAttack.join('')));
           this.attacks.push(newAttack)
           console.log(input);
           return newAttack;
-      } else {
-        outer:while(tempCount < 1){
-        let input = this.randomCoord();
-        if(this.computerAttackCheck(input)===false){
+        } else {
+          outer:while(tempCount < 1){
+          let input = this.randomCoord();
+          if(this.computerAttackCheck(input)===false){
           continue outer;
         } else {
-          newAttack = input;
-          let newTracked = input.join('');
-          this.trackedAttacks.push(parseInt(newTracked));
-          tempCount++;
-          this.attacks.push(newAttack);
-          tempCount = 0;
-          return newAttack;
+            newAttack = input;
+            this.trackedAttacksAI.push(parseInt(newAttack.join('')));
+            tempCount++;
+            this.attacks.push(newAttack);
+            tempCount = 0;
+            return newAttack;
           }
-       }
+        }
         
       } 
     };
@@ -129,14 +127,14 @@ class Player {
             }
         for(let i = 0; i < playerOneBoard.children.length;i++){
           if (playerOneBoard.children[i].classList.contains('attack-landed')){
-            if(this.hitsArray.includes(i+1)===false && this.trackedAttacks.includes(i+1)===false && (i < 99)){
+            if(this.hitsArray.includes(i+1)===false && this.trackedAttacksAI.includes(i+1)===false && (i < 99)){
               let right = i+1;
               let coords = this.gameboard.getCoord(right);
               array[0] = parseInt(coords[0]);
               array[1] = parseInt(coords[1]);
               this.hitsArray.push(right);
               return array;
-            } else if (this.hitsArray.includes(i-1)===false && this.trackedAttacks.includes(i-1)===false && (i > 0)){
+            } else if (this.hitsArray.includes(i-1)===false && this.trackedAttacksAI.includes(i-1)===false && (i > 0)){
               let left = i-1;
               console.log(left);
               let coords = this.gameboard.getCoord(left);
@@ -144,14 +142,14 @@ class Player {
               array[1] = parseInt(coords[1]);
               this.hitsArray.push(left);
               return array;
-            } else if (this.hitsArray.includes(i+10)===false && this.trackedAttacks.includes(i+10)===false && (i < 90)){
+            } else if (this.hitsArray.includes(i+10)===false && this.trackedAttacksAI.includes(i+10)===false && (i < 90)){
                 let down = i+10;
                 let coords = this.gameboard.getCoord(down);
                 array[0] = parseInt(coords[0]);
                 array[1] = parseInt(coords[1]);
                 this.hitsArray.push(down);
                 return array;
-            } else if (this.hitsArray.includes(i-10)===false && this.trackedAttacks.includes(i-10)===false && (i > 9)){
+            } else if (this.hitsArray.includes(i-10)===false && this.trackedAttacksAI.includes(i-10)===false && (i > 9)){
                 let up = i-10;
                 let coords = this.gameboard.getCoord(up);
                 array[0] = parseInt(coords[0]);

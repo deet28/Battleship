@@ -12,7 +12,7 @@ const restartButton = document.querySelector('.restart');
 let playerOne;
 let playerTwo;
 
-//game set up.
+//Game set up and player creation.
 
 function startSetUp(){
   enterName.classList.remove('hidden');
@@ -65,7 +65,8 @@ function nameCheck(input){
     return name;
   }
 }
-//functions for game play
+
+//Gameplay functionality.
 function gamePlay(e){
   if(playerOne.playerTurn == true){
     let attacked = playerTwo;
@@ -115,6 +116,8 @@ function checkWinner(input){
     }
   })
 }
+
+//Placing ships on gameboard.
 
 function clickToPlace(){
   for(let i = 0; i < playerOne.playerBoard.children.length; i++){
@@ -263,29 +266,3 @@ submitName.addEventListener('click',playerOneCreation);
 axisButton.addEventListener('click',changeAxis);
 
 //module.exports = playerOneCreation();
-
-
-
-//this.computerAttack = function(){
-//  outer:while(tempCount < 1 ){
-//    attackCount = 0;
-//    let input = this.randomCoord();
-//    console.log(input);
-//    for(let i = -1; i < this.attacks.length; i++){
-//      let a = this.attacks[i];
-//        if (this.arrayEquality(input,a)===false){
-//          attackCount++;
-//        } if (attackCount < this.attacks.length-1){
-//          continue outer;
-//        } else {
-//        newAttack = input;
-//        tempCount++;
-//        this.attacks.push(newAttack);
-//        tempCount = 0;
-//        attackCount = 0;
-//        console.log(this.attacks);
-//        return newAttack;
-//      }
-//    }
-//  };
-//}
