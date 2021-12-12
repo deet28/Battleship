@@ -264,5 +264,10 @@ function playAgain(){
 makePlayer.addEventListener('click',startSetUp);
 submitName.addEventListener('click',playerOneCreation);
 axisButton.addEventListener('click',changeAxis);
+enterName.addEventListener('keypress',function(e) {
+  if (e.key === 'Enter' && enterName.classList.contains('hidden')===false){
+      playerOneCreation();
+  }
+});
 
 //module.exports = playerOneCreation();
