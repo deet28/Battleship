@@ -78,7 +78,6 @@ class Player {
           newAttack = input;
           this.trackedAttacksAI.push(parseInt(newAttack.join('')));
           this.attacks.push(newAttack)
-          console.log(input);
           return newAttack;
         } else {
           outer:while(tempCount < 1){
@@ -136,7 +135,6 @@ class Player {
               return array;
             } else if (this.hitsArray.includes(i-1)===false && this.trackedAttacksAI.includes(i-1)===false && (i > 0)){
               let left = i-1;
-              console.log(left);
               let coords = this.gameboard.getCoord(left);
               array[0] = parseInt(coords[0]);
               array[1] = parseInt(coords[1]);

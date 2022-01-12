@@ -155,7 +155,6 @@ class Gameboard {
     this.sunkShips = function (){
       Object.values(this.ships).forEach(val => {
         if (val.sunk === true){
-          console.log(val);
           this.shipsSunk++;
           }
         });

@@ -1,4 +1,3 @@
-const Gameboard = require ('./Factories/gameboard.js');
 const Player = require('./Factories/player');
 
 const makePlayer = document.querySelector('.make-player');
