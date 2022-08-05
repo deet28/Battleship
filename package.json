@@ -1,7 +1,7 @@
 {
-  "name": "bship",
+  "name": "Battleship",
   "version": "1.0.0",
-  "description": "BattleShip App",
+  "description": "Battleship board game",
   "main": "index.js",
   "scripts": {
     "test": "jest",
