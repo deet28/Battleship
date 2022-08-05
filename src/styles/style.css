@@ -1,0 +1,119 @@
+@import './boards.css';
+
+body{
+  background-color: rgb(78, 92, 100);
+  height:100vh;
+}
+.headers{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title{
+  text-align:center;
+  font-size: 36px;
+  color:white;
+  font-weight:bold;
+}
+.game-text{
+  color:white;
+  font-size: 22px;
+}
+
+.button-div{
+  margin-top:2rem;
+  margin-bottom:0%;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+}
+.make-player{
+  background-color: rgb(110, 113, 255);
+  color: white;
+  width:8em;
+  height:2em;
+  font-size:18px;
+  box-sizing: border-box;
+  border-radius:10px;
+  border:0;
+}
+.make-player:hover{
+  cursor: pointer;
+  background-color: rgb(101, 103, 231);
+}
+.submit{
+  background-color: rgb(110, 113, 255);
+  color: white;
+  width:8em;
+  height:2em;
+  font-size:18px;
+  box-sizing: border-box;
+  border-radius:10px;
+  border:0;
+}
+.submit:hover{
+  cursor: pointer;
+  background-color: rgb(101, 103, 231);
+}
+.enter-name{
+  margin-bottom:2rem;
+  height:2rem;
+  width:15rem;
+  border-radius:5px;
+  text-align: center;
+  font-size: 22px;
+  border: 1px solid gray;
+  outline:none;
+}
+.axis-button{
+  background-color: rgb(110, 113, 255);
+  color: white;
+  width:8em;
+  height:2em;
+  font-size:18px;
+  box-sizing: border-box;
+  border-radius:10px;
+  border:0;
+}
+.axis-button:hover{
+  cursor: pointer;
+  background-color: rgb(101, 103, 231);
+}
+.restart-div{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.restart{
+  background-color: rgb(110, 113, 255);
+  color: white;
+  width:8em;
+  height:2em;
+  font-size:18px;
+  box-sizing: border-box;
+  border-radius:5px;
+  border:0;
+}
+.restart:hover{
+  cursor:pointer;
+  background-color: rgb(101, 103, 231);
+}
+.start-game{
+  display:flex;
+  justify-content: center;
+  margin-top:3rem;
+}
+.start-button{
+  height:2rem;
+  width:8rem;
+  font-size: 18px;
+}
+.start-button:hover{
+  cursor:pointer;
+}
+
+.hidden{
+  display: none;
+}

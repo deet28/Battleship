@@ -34,6 +34,6 @@ module.exports = {
     },
     host: '127.0.0.1',
     compress: true,
-    port: 9000,
+    port: 3000,
   },
 }

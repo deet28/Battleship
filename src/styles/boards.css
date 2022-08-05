@@ -1,0 +1,115 @@
+.game-div{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  align-items:center;
+  flex-direction: row;
+  grid-gap:10px;
+  min-height: 400px;
+  min-width:100%;
+  margin-top:5rem;
+}
+
+.choose-ships-board{
+  height: 600px;
+  width:500px;
+  border:1px solid black;
+  grid-template-columns: repeat(10, [col] 1fr);
+  grid-template-rows: repeat(10, [row] 1fr);
+}
+.player-one-parent{
+  width:90%;
+}
+.player-one-board{
+  height: 400px;
+  width:100%;
+  border:1px solid black;
+  display:grid;
+  grid-template-columns: repeat(10, [col] 1fr);
+  grid-template-rows: repeat(10, [row] 1fr);
+}
+
+.player-two-parent{
+  width:90%
+}
+
+.player-two-board{
+  height: 400px;
+  width:100%;
+  border:1px solid black;
+  display:grid;
+  grid-template-columns: repeat(10, [col] 1fr);
+  grid-template-rows: repeat(10, [row] 1fr);
+}
+
+.player-one-tile{
+  border: 1px solid lightgray;
+}
+.place-ship-tile:hover{
+  cursor:pointer;
+  border:1px solid black;
+}
+.attack-ship-tile:hover{
+  cursor:pointer;
+  border: 1px solid black;
+}
+  
+.player-two-tile{
+  border: 1px solid lightgray;
+}
+
+.board-disable{
+  pointer-events:none;
+}
+
+/* Universal Elements */
+.names{
+  color:white;
+}
+.no-room{
+  background-color: red;
+}
+.attack-landed{
+  background-color: red;
+}
+.attack-missed{
+  background-color: lightgray;
+}
+.piece-hover{
+  background-color: green;
+}
+.piece-placed{
+  background-color: blue;
+}
+
+@media screen and (max-width:700px){
+  .game-div{
+    grid-template-columns: 1fr;
+    margin-top:0.5em;
+    grid-gap:2px;
+    align-content:center;
+    justify-items:center;
+  }
+  .player-one-parent{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items:center;
+  }
+  .player-one-board{
+    height:15em;
+    width:70%;
+  }
+  .player-two-parent{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+  }
+  .player-two-board{
+    width:70%;
+    height:15em;
+  }
+}
