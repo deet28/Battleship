@@ -268,5 +268,3 @@ enterName.addEventListener('keypress',function(e) {
       playerOneCreation();
   }
 });
-
-//module.exports = playerOneCreation();
