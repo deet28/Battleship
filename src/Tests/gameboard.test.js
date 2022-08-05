@@ -105,17 +105,3 @@ test('Gameboard knows all ships have not sunk',()=>{
   playerShips.sunkShips();
   expect(playerShips.allShipsSunk()).toBe(false);
 });
-
-
-
-
-
-
-//UNSURE IF NECESSARY
-//test('Storing ship coordinates in separate array',() => {
-//  const playerShips = new Gameboard();
-//  playerShips.placeShips(playerShips.ships.battleShip,17);
-//  expect(playerShips.shipCoords[0]).toBe('Battle Ship [1,7]');
-//  expect(playerShips.shipCoords[1]).toBe('Battle Ship [1,8]');
-//})
-//UNSURE IF NECESSARY ^
