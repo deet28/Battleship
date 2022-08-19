@@ -1,5 +1,4 @@
 const Ship = require ('./ship');
-const Player = require('./player.js');
 
 class Gameboard {
   constructor(){
@@ -55,7 +54,7 @@ class Gameboard {
           this.changeShip(this.ships);
           return this.gameGrid;
         } 
-        } else if(this.xAxis === false){  
+        } else if(this.xAxis === false){ 
           let coord = this.getCoord (input);
           let row = coord[0];
           let col = coord[1];
@@ -211,30 +210,5 @@ class Gameboard {
       }
     }
   }
-
-//original gameboard.
-
-//class Gameboard {
-//  constructor(){
-//    this.missedShots = [];
-//    this.ships = [];
-//
-//    this.carrierShip = new Ship('Carrier',5);
-//    this.destroyerShip = new Ship('Destroyer',4);
-//    this.battleShip = new Ship ('Battle Ship',3);
-//    this.submarine = new Ship ('Submarine',3);
-//    this.patrolBoat = new Ship ('Patrol Boat',2);
-//  
-//    this.placeShips = function(){
-//
-//    }
-//    this.canPlace = function(){
-//    
-//    }
-//    this.receiveAttack = function(){
-//
-//    }
-//  }
-//}
 
 module.exports = Gameboard;

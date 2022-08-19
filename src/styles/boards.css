@@ -1,3 +1,20 @@
+
+.pick-game-div{
+  min-width: 100%;
+  max-width: 100%;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+  flex-direction: column;
+  min-height: 30vh;
+}
+.pick-game-active{
+  max-width:70% !important;
+  min-height:100%;
+}
+.pick-board-one{
+  min-height:500px !important;
+}
 .game-div{
   display:grid;
   grid-template-columns: 1fr 1fr;
@@ -6,10 +23,8 @@
   flex-direction: row;
   grid-gap:10px;
   min-height: 400px;
-  min-width:100%;
-  margin-top:1rem;
+  max-width:98%;
 }
-
 .choose-ships-board{
   height: 600px;
   width:500px;
@@ -20,10 +35,18 @@
 .player-one-parent{
   width:90%;
 }
+.player-one-start{
+  height:900px;
+  width:80%;
+  border:5px solid black;
+  display:grid;
+  grid-template-columns: repeat(10, [col] 1fr);
+  grid-template-rows: repeat(10, [row] 1fr);
+}
 .player-one-board{
-  height: 400px;
+  height:400px;
   width:100%;
-  border:1px solid black;
+  border:5px solid black;
   display:grid;
   grid-template-columns: repeat(10, [col] 1fr);
   grid-template-rows: repeat(10, [row] 1fr);
@@ -36,15 +59,20 @@
 .player-two-board{
   height: 400px;
   width:100%;
-  border:1px solid black;
+  border:5px solid black;
   display:grid;
   grid-template-columns: repeat(10, [col] 1fr);
   grid-template-rows: repeat(10, [row] 1fr);
 }
 
 .player-one-tile{
-  border: 1px solid lightgray;
+  border: 2px solid lightgray;
 }
+
+.player-two-tile{
+  border: 2px solid lightgray;
+}
+
 .place-ship-tile:hover{
   cursor:pointer;
   border:1px solid black;
@@ -54,41 +82,32 @@
   border: 1px solid black;
 }
   
-.player-two-tile{
-  border: 1px solid lightgray;
-}
-
 .board-disable{
   pointer-events:none;
 }
 
-/* Universal Elements */
-.names{
-  color:white;
-}
-.no-room{
-  background-color: red;
-}
-.attack-landed{
-  background-color: red;
-}
-.attack-missed{
-  background-color: lightgray;
-}
-.piece-hover{
-  background-color: green;
-}
-.piece-placed{
-  background-color: blue;
-}
-
 @media screen and (max-width:700px){
+  .names{
+    width:80%;
+  }
+  .pick-game-div{
+    min-width: 100%;
+    max-width: 100%;
+  }
+  .pick-game-active{
+    min-width:100% !important;
+    min-height:400px !important;
+  }
+  .pick-board-one{
+    min-height:400px !important
+  }
   .game-div{
     grid-template-columns: 1fr;
-    margin-top:0.1em;
-    grid-gap:2px;
+    grid-gap:0px;
     align-content:center;
     justify-items:center;
+    min-width:100%;
+    margin-top:-2rem;
   }
   .player-one-parent{
     width:100%;
@@ -98,8 +117,8 @@
     align-items:center;
   }
   .player-one-board{
-    height:15em;
-    width:70%;
+    width:80%;
+    height:18em;
   }
   .player-two-parent{
     width:100%;
@@ -108,9 +127,10 @@
     justify-content:center;
     align-items:center;
     margin-bottom:2rem;
+    margin-top:0rem;
   }
   .player-two-board{
-    width:70%;
-    height:15em;
+    width:80%;
+    height:18em;
   }
 }

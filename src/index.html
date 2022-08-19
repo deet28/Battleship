@@ -2,21 +2,26 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>Battleship</title>
     <script src = "main.js" defer></script>
   </head>
-    <body>
-    <div class = 'headers'>
-      <h1 class = 'title'>Battleship</h1>
+  <body>
+    <nav class = "nav-bar">
+      <span class='nav-title'>Battleship</span>
+    </nav>
+    
+    <div class = 'game-text-parent'>
       <div class = 'game-text'>Click to make a player.</div>
     </div>
       <div class = 'button-div'>
-      <input type = 'text' class = 'enter-name hidden'>
-      <button class = 'make-player'>Create Player</button>
-      <button class = 'submit hidden'>Enter Name</button>
-      <button class = 'axis-button hidden'>Change Axis</button>
-    </div>
-    <div class = 'game-div'>
+        <input type = 'text' class = 'enter-name hidden'>
+        <button class = 'make-player'>Create Player</button>
+        <button class = 'submit hidden'>Enter Name</button>
+        <button class = 'axis-button hidden'>Rotate</button>
+      </div>
+    <div class = 'pick-game-div'>
       <div class = 'player-one-parent'>
         <h3 class = 'player-one-name names'></h3>
         <div class = 'player-one-board hidden'></div> 
