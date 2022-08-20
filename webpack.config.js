@@ -8,7 +8,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
+    path:'/'
   },
   module: {
     rules: [
@@ -23,7 +23,7 @@ module.exports = {
       patterns: [
         {
           from: 'src/index.html',
-          to: '' // copies all files to dist/assets
+          to: ''
         },
       ]
     })
