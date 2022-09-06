@@ -11,7 +11,6 @@ body{
 }
 button{
   font-weight:600;
-  /* background-color: rgb(110, 113, 255); */
   background-color: rgb(174, 110, 110);
   color: white;
   width:6em;
@@ -100,8 +99,9 @@ input{
   align-items:center;
 }
 .make-player{
-  width:8em;
-  height:1.8em;
+  width:10rem;
+  height:2rem;
+  font-size:0.9rem;
 }
 .submit{
   width:8em;
